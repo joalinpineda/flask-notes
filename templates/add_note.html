@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block Title %}Add note{% endblock Title %}
+
+{% block Header %}
+<header class="h-16 px-6 border-b border-neutral-200
+            bg-white flex items-center
+            justify-between">
+
+    <div class="flex items-center gap-3">
+
+        <!-- Mobile menu -->
+        <button class="md:hidden text-neutral-500">
+            ☰
+        </button>
+
+        <span class="text-sm text-neutral-500">
+            All notes
+        </span>
+
+        <span class="text-neutral-300">
+            /
+        </span>
+
+        <span class="text-sm font-medium">
+            Add new note
+        </span>
+
+    </div>
+
+
+    <div class="flex items-center gap-2">
+
+        <button
+            class="px-3 py-2 text-sm text-neutral-500
+                    hover:bg-neutral-100 rounded-md">
+
+            Save
+        </button>
+
+        <button
+            class="px-3 py-2 text-sm text-red-500
+                    hover:bg-red-50 rounded-md">
+
+            Delete
+        </button>
+
+    </div>
+
+</header>
+{% endblock Header %}
+
+
+<!-- CONTENT -->
+{% block Content %}
+<!-- VIEWER/EDITOR -->
+<section class="max-w-3xl mx-auto px-6 py-12">
+
+
+
+    <!-- TITLE -->
+    <input
+        type="text"
+        value=""
+        placeholder="What's on your mind?"
+        class="w-full text-4xl font-bold tracking-tight
+                bg-transparent border-none outline-none
+                placeholder:text-neutral-300 mb-6"
+    >
+
+
+    <!-- CONTENT -->
+    <textarea
+        placeholder="Start writing..."
+        class="w-full min-h-[500px] resize-none
+                bg-transparent border-none outline-none
+                text-lg leading-8 text-neutral-700
+                placeholder:text-neutral-300"
+    ></textarea>
+</section>
+{% endblock Content %}
