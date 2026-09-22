@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block Title %}{{note.title}} |{% endblock Title %}
+{% block Title %}{{note.title}}{% endblock Title %}
 
 <!-- Header -->
 {% block Header %}
@@ -18,15 +18,22 @@
 
     </div>
 
-
+<div>
     <!-- Edit note -->
-    <a href="{{url_for('edit_note', id=note.id)}}" class="px-3 py-2 text-sm text-neutral-500 hover:bg-neutral-100 rounded-md">
+    <a href="{{url_for('notes.edit_note', id=note.id)}}" class="px-3 py-2 text-sm text-neutral-500 hover:bg-amber-100 rounded-md">
         <span class="text-base leading-none">
             ✏️
         </span>
         Edit note
     </a>
 
+    <button class="px-3 py-2 text-sm text-red-500 hover:bg-red-100 rounded-md">
+        <span class="text-base leading-none">
+            🗑️
+        </span>
+        Delete note
+    </button>
+</div>
 </header>
 {% endblock Header %}
 

@@ -17,7 +17,7 @@
 
             <!-- Logo -->
             <div class="h-16 px-6 flex items-center border-b border-neutral-200">
-                <a href="{{url_for('main_list')}}">
+                <a href="{{url_for('notes.main_list')}}">
                     <div class="flex items-center gap-2">
 
                         <div class="w-7 h-7 rounded-md text-white
@@ -64,9 +64,7 @@
 
 
                 <a href="#"
-                   class="mt-1 flex items-center gap-3 px-3 py-2
-                          rounded-md text-sm text-neutral-500
-                          hover:bg-neutral-100 hover:text-neutral-900">
+                   class="mt-1 flex items-center gap-3 px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900">
 
                     <!-- Star icon -->
                     <svg
@@ -115,7 +113,7 @@
 
                     <!-- Note -->
                      {% for note in notes %}
-                    <a href="{{url_for('view_note', id=note.id)}}" class="block px-3 py-2 rounded-md hover:bg-neutral-100">
+                    <a href="{{url_for('notes.view_note', id=note.id)}}" class="block px-3 py-2 rounded-md hover:bg-neutral-100">
                         <div class="text-sm font-medium truncate">
                             {{note.title}}
                         </div>

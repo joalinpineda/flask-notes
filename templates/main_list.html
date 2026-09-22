@@ -26,7 +26,7 @@
 
     <!-- New note -->
     <a
-    href="{{url_for('add_note')}}"
+    href="{{url_for('notes.add_note')}}"
     class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-black text-white text-sm font-medium hover:bg-neutral-800">
         <span class="text-base leading-none">
             +
@@ -91,7 +91,7 @@
 
         {% for note in notes %}
         <!-- Note card -->
-        <a href="{{url_for('view_note', id = note.id )}}"
+        <a href="{{url_for('notes.view_note', id = note.id )}}"
         class="group block bg-white border border-neutral-200 rounded-lg p-5 hover:border-neutral-300 hover:shadow-sm transition">
 
             <div class="flex items-start justify-between gap-4">

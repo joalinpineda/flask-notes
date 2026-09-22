@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block Title %}{{note.title}} |{% endblock Title %}
+{% block Title %}{{note.title}}{% endblock Title %}
 
 {% block Header %}
 <header class="h-16 px-6 border-b border-neutral-200
@@ -31,20 +31,21 @@
 
     <div class="flex items-center gap-2">
 
-        <button
-            class="px-3 py-2 text-sm text-neutral-500
-                    hover:bg-neutral-100 rounded-md">
-
+        <button class="px-3 py-2 text-sm text-neutral-500 hover:bg-sky-100 rounded-md">
+           <span class="text-base leading-none">
+            💾
+            </span>
             Save
         </button>
 
-        <button
-            class="px-3 py-2 text-sm text-red-500
-                    hover:bg-red-50 rounded-md">
-
-            Delete
+        <button class="px-3 py-2 text-sm text-amber-500 hover:bg-yellow-100 rounded-md">
+            <a href="{{url_for('notes.view_note', id=note.id)}}">
+                <span class="text-base leading-none">
+                👎
+                </span>
+                Discard
+            </a>
         </button>
-
     </div>
 
 </header>
