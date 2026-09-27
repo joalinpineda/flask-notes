@@ -20,9 +20,7 @@
                 <a href="{{url_for('notes.main_list')}}">
                     <div class="flex items-center gap-2">
 
-                        <div class="w-7 h-7 rounded-md text-white
-                                    flex items-center justify-center
-                                    text-sm font-semibold">
+                        <div class="w-7 h-7 rounded-md text-white flex items-center justify-center text-sm font-semibold">
                             📝
                         </div>
 
@@ -39,22 +37,20 @@
             <nav class="p-3">
 
                 <a href="#"
-                   class="flex items-center gap-3 px-3 py-2
-                          rounded-md bg-neutral-100
-                          text-sm font-medium">
+                   class="flex items-center gap-3 px-3 py-2 rounded-md bg-neutral-100 text-sm font-medium">
 
                     <!-- Notes icon -->
                     <svg
-                        class="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24">
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
 
                         <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"/>
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"/>
 
                     </svg>
 
@@ -95,21 +91,12 @@
             <!-- Notes list -->
             <div class="px-3 mt-5">
 
-                <div class="px-3 mb-2 text-xs font-medium
-                            uppercase tracking-wide
-                            text-neutral-400">
-
+                <div class="px-3 mb-2 text-xs font-medium uppercase tracking-wide text-neutral-400">
                     Notes
-
                 </div>
-
 
                 <div class="space-y-1">
 
-                   
-
-
-           
 
                     <!-- Note -->
                      {% for note in notes %}
@@ -123,10 +110,6 @@
                         </div>
                     </a>
                      {% endfor %}
-
-
-                 
-
                 </div>
 
             </div>
