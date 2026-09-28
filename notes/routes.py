@@ -40,3 +40,10 @@ def edit_note(id):
         db.session.commit()
         return redirect(url_for('notes.main_list'))
     return render_template('edit_note.html', note = note, notes=Note.query.all())
+
+@notes_bp.route('/delete/<int:id>', methods=['POST'])
+def delete_note(id):
+    note = db.get_or_404(Note, id)
+    db.session.delete(note)
+    db.session.commit()
+    return redirect(url_for('notes.main_list'))
