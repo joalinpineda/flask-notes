@@ -110,8 +110,8 @@
                {{note.content}}
             </p>
             <div class="mt-5 flex items-center justify-between">
-                <span class="text-xs text-neutral-400">
-                   {{note.updated_at}}
+                <span class="text-[12px] italic text-neutral-400">
+                   Last updated {{note.updated_at.strftime('%B %d, %Y')}}
                 </span>
             </div>
         </a>
