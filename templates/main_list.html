@@ -87,7 +87,7 @@
     <!-- Notes -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-        {% for note in notes %}
+        {% for note in notes.items %}
         <!-- Note card -->
         <a href="{{url_for('notes.view_note', id = note.id )}}"
         class="group block bg-white border border-neutral-200 rounded-lg p-5 hover:border-neutral-300 hover:shadow-sm transition">
@@ -123,40 +123,55 @@
     <div class="mt-10 flex items-center justify-between">
 
         <span class="text-sm text-neutral-400">
-            Showing {{notes|length}} notes
+            Displaying {{notes.items|length}} of {{notes.total}} notes
         </span>
 
+        {% if notes.has_prev %}
+         <div class="flex items-center gap-1">
+            <button class="px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-200">
+           <a href="{{url_for('notes.main_list', page=notes.prev_num)}}">Prev</a>
+        </button>
+        {% else %}
         <div class="flex items-center gap-1">
-
-            <button
-                disabled
-                class="px-3 py-2 rounded-md text-sm text-neutral-300 cursor-not-allowed">
-                Previous
+            <button disabled class="px-3 py-2 rounded-md text-sm text-neutral-300 cursor-not-allowed">
+                Prev
             </button>
+            {% endif %}
+        
+            {% for page in notes.iter_pages(left_edge=2, left_current=2, right_current=2, right_edge=2) %}
+                {% if page %}
+                    {% if page == notes.page %}
+                    <button class="px-3 py-2 rounded-md bg-black text-white text-sm font-medium">
+                        <p class='text-white'>{{page}}</p>
+                    </button>
+                    {% else %}
+                    <button class="px-3 py-2 rounded-md bg-neutral-100 text-sm font-medium">
+                        <a href="{{url_for('notes.main_list', page=page)}}">{{page}}</a>
+                    </button>
+                    {% endif %}
+                {% else %}
+                ... 
+                {% endif %}
+            {% endfor %}
 
+
+            {% if notes.has_next %}
             <button
-                class="px-3 py-2 rounded-md bg-neutral-100 text-sm font-medium">
-                1
+                class="px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-200">
+                <a href="{{url_for('notes.main_list', page=notes.next_num)}}">Next</a>
             </button>
-
-
-            <button
-                class="px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-100">
-                2
-            </button>
-
-
-            <button
-                class="px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-100">
+            {% else %}
+            <button disabled class="px-3 py-2 rounded-md text-sm text-neutral-300 cursor-not-allowed">
                 Next
             </button>
+            {% endif %}
 
         </div>
 
     </div>
-{% else %}
-<p><strong>No notes already. Start by creating your first note!</strong></p>
-{% endif %}
+    {% else %}
+    <p><strong>No notes already. Start by creating your first note!</strong></p>
+    {% endif %}
 </section>
 
 {% endblock Content %}

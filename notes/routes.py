@@ -6,7 +6,7 @@ notes_bp = Blueprint('notes', __name__)
 
 @notes_bp.route('/')
 def main_list():
-    notes = Note.query.all()
+    notes = Note.query.order_by(Note.created_at.desc()).paginate(per_page=6)
     return render_template('main_list.html', notes=notes)
 
 
