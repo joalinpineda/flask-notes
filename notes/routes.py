@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, abort, url_for
 
 from models import Note, db
+from services.slug_service import generate_slug
 
 notes_bp = Blueprint('notes', __name__)
 
@@ -18,10 +19,12 @@ def view_note(id):
 
 @notes_bp.route('/add', methods=['GET', 'POST'])
 def add_note():
+    #Todo: handle sqlalchemy error
     if request.method == "POST":
         title = request.form.get('title')
         content = request.form.get('content')
-        note = Note(title=title, content=content)
+        slug = generate_slug(title)
+        note = Note(title=title, content=content, slug=slug)
         db.session.add(note)
         db.session.commit()
         return redirect(url_for('notes.main_list'))
