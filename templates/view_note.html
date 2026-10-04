@@ -20,13 +20,13 @@
 
 <div class="flex items-center gap-2">
     <!-- Edit note -->
-    <a href="{{url_for('notes.edit_note', id=note.id)}}" class="px-3 py-2 text-sm text-neutral-500 hover:bg-amber-100 rounded-md">
+    <a href="{{url_for('notes.edit_note', slug=note.slug)}}" class="px-3 py-2 text-sm text-neutral-500 hover:bg-amber-100 rounded-md">
         <span class="text-base leading-none">
             ✏️
         </span>
         Edit note
     </a>
-    <form method="POST" id="delete-form" action="{{url_for('notes.delete_note', id=note.id)}}" onsubmit="return confirm('Are you sure you want to delete the note?')">
+    <form method="POST" id="delete-form" action="{{url_for('notes.delete_note', slug=note.slug)}}" onsubmit="return confirm('Are you sure you want to delete the note?')">
         <button id="delete-form" type="submit" class="px-3 py-2 text-sm text-red-500 hover:bg-red-100 rounded-md">
             <span class="text-base leading-none">
                 🗑️
