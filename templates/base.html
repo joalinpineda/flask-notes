@@ -100,7 +100,7 @@
 
                     <!-- Note -->
                      {% for note in notes %}
-                    <a href="{{url_for('notes.view_note', id=note.id)}}" class="block px-3 py-2 rounded-md hover:bg-neutral-100">
+                    <a href="{{url_for('notes.view_note', slug=note.slug)}}" class="block px-3 py-2 rounded-md hover:bg-neutral-100">
                         <div class="text-sm font-medium truncate">
                             {{note.title}}
                         </div>
