@@ -1,7 +1,7 @@
 from slugify import slugify
 from sqlalchemy import select
 
-from models import Note, db
+from app.models.note import Note, db
 
 
 def exist_slug(slug: str) -> bool:

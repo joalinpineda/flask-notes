@@ -2,8 +2,8 @@ from flask import Blueprint, redirect, render_template, request, abort, url_for
 from slugify import slugify
 from sqlalchemy import select
 
-from models import Note, db
-from services.slug_service import generate_slug
+from app.models.note import Note, db
+from app.notes.slug_service import generate_slug
 
 notes_bp = Blueprint("notes", __name__)
 
