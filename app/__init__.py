@@ -1,7 +1,7 @@
 from flask import Flask
-from config import Config
-from notes.routes import notes_bp
-from models import db
+from app.config import Config
+from app.notes.routes import notes_bp
+from app.models.note import db
 
 def create_app()-> Flask:
     app = Flask(__name__)
