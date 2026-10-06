@@ -45,11 +45,11 @@ def edit_note(slug):
     if request.method == "POST":
         title = request.form.get("title")
         content = request.form.get("content")
+        if title != note.title:
+            note.slug = generate_slug(title)
         note.title = title
         note.content = content 
         slug = generate_slug(title)
-        note = Note(title=title, content=content, slug=slug)
-        db.session.add(note)
         db.session.commit()
         return redirect(url_for("notes.main_list"))
     return render_template("edit_note.html", note=note, notes=Note.query.all())
