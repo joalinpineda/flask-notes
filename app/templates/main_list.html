@@ -56,7 +56,7 @@
         </p>
 
     </div>
-    {% if notes %}
+    {% if notes_list %}
 
     <!-- Search -->
     <div class="mb-6">
@@ -87,7 +87,7 @@
     <!-- Notes -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-        {% for note in notes.items %}
+        {% for note in notes_list.items %}
         <!-- Note card -->
         <a href="{{url_for('notes.view_note', slug=note.slug )}}"
         class="group block bg-white border border-neutral-200 rounded-lg p-5 hover:border-neutral-300 hover:shadow-sm transition">
@@ -123,13 +123,13 @@
     <div class="mt-10 flex items-center justify-between">
 
         <span class="text-sm text-neutral-400">
-            Displaying {{notes.items|length}} of {{notes.total}} notes
+            Displaying {{notes_list.items|length}} of {{notes_list.total}} notes
         </span>
 
-        {% if notes.has_prev %}
+        {% if notes_list.has_prev %}
          <div class="flex items-center gap-1">
             <button class="px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-200">
-           <a href="{{url_for('notes.main_list', page=notes.prev_num)}}">Prev</a>
+           <a href="{{url_for('notes.main_list', page=notes_list.prev_num)}}">Prev</a>
         </button>
         {% else %}
         <div class="flex items-center gap-1">
@@ -138,9 +138,9 @@
             </button>
             {% endif %}
         
-            {% for page in notes.iter_pages(left_edge=2, left_current=2, right_current=2, right_edge=2) %}
+            {% for page in notes_list.iter_pages(left_edge=2, left_current=2, right_current=2, right_edge=2) %}
                 {% if page %}
-                    {% if page == notes.page %}
+                    {% if page == notes_list.page %}
                     <button class="px-3 py-2 rounded-md bg-black text-white text-sm font-medium">
                         <p class='text-white'>{{page}}</p>
                     </button>
@@ -155,10 +155,10 @@
             {% endfor %}
 
 
-            {% if notes.has_next %}
+            {% if notes_list.has_next %}
             <button
                 class="px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-200">
-                <a href="{{url_for('notes.main_list', page=notes.next_num)}}">Next</a>
+                <a href="{{url_for('notes.main_list', page=notes_list.next_num)}}">Next</a>
             </button>
             {% else %}
             <button disabled class="px-3 py-2 rounded-md text-sm text-neutral-300 cursor-not-allowed">
