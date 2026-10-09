@@ -1,6 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, url_for
 
-from app.notes.repository import NoteRepository
 from app.notes.service import NoteService
 
 notes_bp = Blueprint("notes", __name__)
@@ -10,10 +9,13 @@ note_service = NoteService()
 
 @notes_bp.route("/")
 def main_list():
+    query = request.args.get("search")
+    if query:
+        notes = note_service.search_by_title(query)
+    else:
+        notes = note_service.get_paginated_notes()
     return render_template(
-        "main_list.html",
-        notes_list=note_service.get_paginated_notes(),
-        notes=note_service.get_recent_notes(),
+        "main_list.html", notes_list=notes, notes=note_service.get_recent_notes()
     )
 
 

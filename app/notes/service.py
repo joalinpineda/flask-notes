@@ -10,15 +10,18 @@ class NoteService:
         self.db = db
         self.repo = NoteRepository()
 
-    def get_paginated_notes(self, per_page:int=6)->Pagination:
+    def get_paginated_notes(self, per_page: int = 6) -> Pagination:
         return self.repo.paginated_note_list(per_page=per_page)
 
-    def get_recent_notes(self)-> list[Note]:
+    def get_recent_notes(self) -> list[Note]:
         return self.repo.last_ten_notes()
 
-    def get_note_by_slug(self, slug:str)->Note:
+    def get_note_by_slug(self, slug: str) -> Note:
         return self.repo.get_by_slug(slug)
-    
+
+    def search_by_title(self, query: str) -> list[Note] | None:
+        return self.repo.search(query)
+
     def add_note(self, title: str, content: str) -> None:
         slug = generate_slug(title)
         try:

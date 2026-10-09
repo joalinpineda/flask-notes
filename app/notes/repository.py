@@ -1,4 +1,5 @@
 from flask_sqlalchemy.pagination import Pagination
+from sqlalchemy import or_
 
 from app.models.note import Note, db
 
@@ -19,6 +20,18 @@ class NoteRepository:
             description="We couldn't find the note you're looking for. It might have been deleted, or the link may be broken.",
         )
         return note
+
+    def search(self, query: str, per_page: int = 6) -> Pagination:
+        return (
+            Note.query.filter(
+                or_(
+                    Note.title.ilike(f"%{query}%"),
+                    Note.content.ilike(f"%{query}%"),
+                )
+            )
+            .order_by(Note.id.desc())
+            .paginate(per_page=per_page)
+        )
 
     def add(self, title: str, content: str, slug: str) -> Note:
         note = Note(title=title, content=content, slug=slug)
