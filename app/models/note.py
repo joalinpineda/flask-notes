@@ -4,14 +4,25 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String, Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
+
 class Base(DeclarativeBase):
-    pass 
+    pass
+
+
 db = SQLAlchemy(model_class=Base)
 
-class Note(db.Model): 
+
+class Note(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True, index=True, nullable=False)
     title: Mapped[str] = mapped_column(String(100), nullable=False)
-    content: Mapped[str] = mapped_column(Text, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(timezone.utc))
-    updated_at: Mapped[datetime] = mapped_column( default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
-    slug:Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
+    content: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        default=lambda: datetime.now(timezone.utc), nullable=False
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        default=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(timezone.utc),
+        nullable=False,
+    )
+    slug: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
+    is_favorite: Mapped[bool] = mapped_column(default=False, nullable=False)
