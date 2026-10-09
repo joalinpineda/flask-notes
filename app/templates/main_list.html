@@ -58,28 +58,31 @@
     </div>
     {% if notes_list %}
 
-    <!-- Search -->
+ <!-- Search -->
     <div class="mb-6">
+        <form method='GET' action="{{url_for('notes.main_list')}}">
 
-        <div class="relative max-w-md">
+            <div class="relative max-w-md">
+                
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24">
+                    <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m21 21-4.35-4.35 m2.35-5.65a8 8 0 11-16 0 8 8 0 0116 0z"/>
+                </svg>
 
-            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24">
-                <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m21 21-4.35-4.35 m2.35-5.65a8 8 0 11-16 0 8 8 0 0116 0z"/>
-            </svg>
-
-            <input
-            name="search"
-            type="search"
-            placeholder="Search notes..."
-            class="w-full pl-9 pr-4 py-2.5 rounded-md border border-neutral-200 bg-white text-sm outline-none focus:border-neutral-400 focus:ring-2 focus:rinåg-neutral-100">
-        </div>
+                <input
+                name="search"
+                type="search"
+                placeholder="Search notes..."
+                value="{{ request.args.get('search', '') }}"
+                class="w-full pl-9 pr-4 py-2.5 rounded-md border border-neutral-200 bg-white text-sm outline-none focus:border-neutral-400 focus:ring-2 focus:ring-neutral-100">
+            </div>
+        </form>
 
     </div>
 
@@ -129,7 +132,7 @@
         {% if notes_list.has_prev %}
          <div class="flex items-center gap-1">
             <button class="px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-200">
-           <a href="{{url_for('notes.main_list', page=notes_list.prev_num)}}">Prev</a>
+           <a href="{{url_for('notes.main_list', page=notes_list.prev_num, search=request.args.get('search', ''))}}">Prev</a>
         </button>
         {% else %}
         <div class="flex items-center gap-1">
@@ -146,7 +149,7 @@
                     </button>
                     {% else %}
                     <button class="px-3 py-2 rounded-md bg-neutral-100 text-sm font-medium">
-                        <a href="{{url_for('notes.main_list', page=page)}}">{{page}}</a>
+                        <a href="{{url_for('notes.main_list', page=page, search=request.args.get('search', ''))}}">{{page}}</a>
                     </button>
                     {% endif %}
                 {% else %}
@@ -158,7 +161,7 @@
             {% if notes_list.has_next %}
             <button
                 class="px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-200">
-                <a href="{{url_for('notes.main_list', page=notes_list.next_num)}}">Next</a>
+                <a href="{{url_for('notes.main_list', page=notes_list.next_num, search=request.args.get('search', ''))}}">Next</a>
             </button>
             {% else %}
             <button disabled class="px-3 py-2 rounded-md text-sm text-neutral-300 cursor-not-allowed">
