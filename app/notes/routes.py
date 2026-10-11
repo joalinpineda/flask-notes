@@ -56,3 +56,9 @@ def delete_note(slug: str):
     note = note_service.get_note_by_slug(slug)
     note_service.delete_note(note)
     return redirect(url_for("notes.main_list"))
+
+@notes_bp.route('/note/<string:slug>/favorite', methods=['POST'])
+def mark_as_favorite(slug:str):
+    note = note_service.get_note_by_slug(slug)
+    note_service.mark_note_as_favorite(note)
+    return redirect(url_for("notes.main_list"))

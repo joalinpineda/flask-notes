@@ -46,3 +46,7 @@ class NoteRepository:
 
     def delete(self, note: Note) -> None:
         self.db.session.delete(note)
+
+    def make_favorite(self, note:Note)->None:
+        note.is_favorite = not note.is_favorite
+        return note

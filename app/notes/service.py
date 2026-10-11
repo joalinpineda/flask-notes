@@ -49,3 +49,11 @@ class NoteService:
         except Exception:
             self.db.session.rollback()
             raise
+
+    def mark_note_as_favorite(self, note:Note)->None:
+        try:
+            self.repo.make_favorite(note)
+            self.db.session.commit()
+        except Exception:
+            self.db.session.rollback()
+            raise
