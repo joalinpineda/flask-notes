@@ -101,10 +101,16 @@
                     {{note.title}}
                 </h3>
 
-                <button
-                class="opacity-0 group-hover:opacity-100 text-neutral-400 hover:text-neutral-900">
-                    ⋯
-                </button>
+                <form action="{{url_for('notes.mark_as_favorite', slug=note.slug)}}" method="POST">
+                    <button
+                    class="opacity-100 text-neutral-400 hover:text-neutral-900">
+                        {% if note.is_favorite %}
+                            ★
+                        {% else %}
+                            ☆
+                        {% endif %}
+                    </button>
+                </form>
 
             </div>
 
