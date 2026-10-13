@@ -36,8 +36,13 @@
             <!-- Navigation -->
             <nav class="p-3">
 
-                <a href="#"
-                   class="flex items-center gap-3 px-3 py-2 rounded-md bg-neutral-100 text-sm font-medium">
+                <a href="{{url_for('notes.main_list')}}"
+                    {% if request.args.get('favorites') %}
+                        class="mt-1 flex items-center gap-3 px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900"
+                    {% else %}
+                        class="flex items-center gap-3 px-3 py-2 rounded-md bg-neutral-200 text-sm font-medium"
+                    {% endif %}
+                >
 
                     <!-- Notes icon -->
                     <svg
@@ -53,36 +58,26 @@
                         d="M4 6h16M4 12h16M4 18h16"/>
 
                     </svg>
-
                     All notes
-
                 </a>
 
 
-                <a href="#"
-                   class="mt-1 flex items-center gap-3 px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900">
+                <a href="{{url_for('notes.main_list', favorites=true)}}"
+                 
+                   {% if request.args.get('favorites') %}
+                        class="flex items-center gap-3 px-3 py-2 rounded-md bg-neutral-200 text-sm font-medium"
+                   {% else %}
+                        class="mt-1 flex items-center gap-3 px-3 py-2 rounded-md text-sm text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900"
+                   {% endif %}
+                    >
 
                     <!-- Star icon -->
-                    <svg
-                        class="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24">
-
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M12 3l2.9 5.88
-                               6.49.94-4.7 4.58
-                               1.11 6.47L12 18.77
-                               6.2 21.87l1.11-6.47
-                               -4.7-4.58 6.49-.94L12 3z"/>
-
-                    </svg>
-
+                     {% if request.args.get('favorites') %}
+                            ★
+                      {% else %}
+                            ☆
+                     {% endif %}
                     Favorites
-
                 </a>
 
             </nav>
@@ -99,7 +94,7 @@
 
 
                     <!-- Note -->
-                     {% for note in notes %}
+                     {% for note in notes_list %}
                     <a href="{{url_for('notes.view_note', slug=note.slug)}}" class="block px-3 py-2 rounded-md hover:bg-neutral-100">
                         <div class="text-sm font-medium truncate">
                             {{note.title}}

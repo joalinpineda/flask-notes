@@ -15,6 +15,9 @@ class NoteService:
 
     def get_recent_notes(self) -> list[Note]:
         return self.repo.last_ten_notes()
+    
+    def get_favorites(self)-> list[Note]:
+        return self.repo.favorite_notes()
 
     def get_note_by_slug(self, slug: str) -> Note:
         return self.repo.get_by_slug(slug)

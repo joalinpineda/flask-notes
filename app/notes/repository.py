@@ -14,6 +14,9 @@ class NoteRepository:
     def last_ten_notes(self) -> list[Note]:
         return Note.query.order_by(Note.created_at.desc()).limit(10).all()
 
+    def favorite_notes(self)-> list[Note]:
+        return Note.query.filter(Note.is_favorite).order_by(Note.created_at.desc()).limit(10).all()
+
     def get_by_slug(self, slug: str) -> Note:
         note = self.db.one_or_404(
             db.select(Note).filter_by(slug=slug),
