@@ -9,14 +9,17 @@ note_service = NoteService()
 
 @notes_bp.route("/")
 def main_list():
-    query = request.args.get("search")
-    if query:
-        notes = note_service.search_by_title(query)
-    else:
-        notes = note_service.get_paginated_notes()
-    return render_template(
-        "main_list.html", notes_list=notes, notes=note_service.get_recent_notes()
+    search = request.args.get("search")
+    favorites = request.args.get("favorites")
+    notes = (
+        note_service.search_by_title(search)
+        if search
+        else note_service.get_paginated_notes()
     )
+    notes_list = (
+        note_service.get_favorites() if favorites else note_service.get_recent_notes()
+    )
+    return render_template("main_list.html", notes=notes, notes_list=notes_list)
 
 
 @notes_bp.route("/note/<string:slug>")
@@ -57,8 +60,9 @@ def delete_note(slug: str):
     note_service.delete_note(note)
     return redirect(url_for("notes.main_list"))
 
-@notes_bp.route('/note/<string:slug>/favorite', methods=['POST'])
-def mark_as_favorite(slug:str):
+
+@notes_bp.route("/note/<string:slug>/favorite", methods=["POST"])
+def mark_as_favorite(slug: str):
     note = note_service.get_note_by_slug(slug)
     note_service.mark_note_as_favorite(note)
     return redirect(url_for("notes.main_list"))
