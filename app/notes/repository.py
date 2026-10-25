@@ -8,8 +8,8 @@ class NoteRepository:
     def __init__(self):
         self.db = db
 
-    def paginated_note_list(self, per_page: int = 6) -> Pagination:
-        return Note.query.order_by(Note.created_at.desc()).paginate(per_page=per_page)
+    def paginated_note_list(self, page:int, per_page: int = 6) -> Pagination:
+        return Note.query.order_by(Note.created_at.desc()).paginate(page=page, per_page=per_page)
 
     def last_ten_notes(self) -> list[Note]:
         return Note.query.order_by(Note.created_at.desc()).limit(10).all()
@@ -24,7 +24,7 @@ class NoteRepository:
         )
         return note
 
-    def search(self, query: str, per_page: int = 6) -> Pagination:
+    def search(self, query: str, page:int, per_page: int = 6) -> Pagination:
         return (
             Note.query.filter(
                 or_(
@@ -33,7 +33,7 @@ class NoteRepository:
                 )
             )
             .order_by(Note.id.desc())
-            .paginate(per_page=per_page)
+            .paginate(page=page, per_page=per_page)
         )
 
     def add(self, title: str, content: str, slug: str) -> Note:
