@@ -24,14 +24,17 @@ class NoteRepository:
         )
         return note
 
-    def search(self, query: str, page:int, per_page: int = 6) -> Pagination:
-        return (
-            Note.query.filter(
-                or_(
-                    Note.title.ilike(f"%{query}%"),
-                    Note.content.ilike(f"%{query}%"),
-                )
+    def search(self, query: str, page: int, favorites: bool = False, per_page: int = 6) -> Pagination:
+        filters = [
+            or_(
+                Note.title.ilike(f"%{query}%"),
+                Note.content.ilike(f"%{query}%"),
             )
+        ]
+        if favorites:
+            filters.append(Note.is_favorite.is_(True))
+        return (
+            Note.query.filter(*filters)
             .order_by(Note.id.desc())
             .paginate(page=page, per_page=per_page)
         )

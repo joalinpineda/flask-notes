@@ -26,7 +26,7 @@
 
     <!-- New note -->
     <a
-    href="{{url_for('notes.add_note', favorites=request.args.get('favorites'))}}"
+    href="{{url_for('notes.add_note', **request.args.to_dict())}}"
     class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-black text-white text-sm font-medium hover:bg-neutral-800">
         <span class="text-base leading-none">
             +
@@ -98,12 +98,12 @@
             <div class="flex items-start justify-between gap-4">
 
                 <h3 class="font-medium text-neutral-900 truncate">
-                    <a href="{{url_for('notes.view_note', slug=note.slug, favorites=request.args.get('favorites'))}}">
+                    <a href="{{url_for('notes.view_note', slug=note.slug, **request.args.to_dict())}}">
                         {{note.title}}
                     </a>
                 </h3>
 
-                <form action="{{url_for('notes.mark_as_favorite', slug=note.slug)}}" method="POST">
+                <form action="{{url_for('notes.mark_as_favorite', slug=note.slug, **request.args.to_dict())}}" method="POST">
                     <button
                     class="opacity-100 text-neutral-400 hover:text-neutral-900">
                         {% if note.is_favorite %}

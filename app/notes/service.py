@@ -22,10 +22,13 @@ class NoteService:
     def get_note_by_slug(self, slug: str) -> Note:
         return self.repo.get_by_slug(slug)
 
-    def search_by_title(self, page:int, query: str) -> list[Note] | None:
-        return self.repo.search(query=query, page=page)
+    def search_by_title(self, page: int, query: str, favorites: bool = False) -> Pagination:
+        return self.repo.search(query=query, page=page, favorites=favorites)
 
     def add_note(self, title: str, content: str) -> None:
+        title = (title or "").strip()
+        if not title:
+            raise ValueError("A note title is required")
         slug = generate_slug(title)
         try:
             self.repo.add(title, content, slug)
@@ -35,6 +38,9 @@ class NoteService:
             raise
 
     def edit_note(self, note: Note, title: str, content: str) -> None:
+        title = (title or "").strip()
+        if not title:
+            raise ValueError("A note title is required")
         slug = note.slug
         if title != note.title:
             slug = generate_slug(title)
