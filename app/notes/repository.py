@@ -8,8 +8,11 @@ class NoteRepository:
     def __init__(self):
         self.db = db
 
-    def paginated_note_list(self, page:int, per_page: int = 6) -> Pagination:
-        return Note.query.order_by(Note.created_at.desc()).paginate(page=page, per_page=per_page)
+    def paginated_note_list(self, page: int, favorites: bool = False, per_page: int = 6) -> Pagination:
+        query = Note.query
+        if favorites:
+            query = query.filter(Note.is_favorite.is_(True))
+        return query.order_by(Note.created_at.desc()).paginate(page=page, per_page=per_page)
 
     def last_ten_notes(self) -> list[Note]:
         return Note.query.order_by(Note.created_at.desc()).limit(10).all()
