@@ -20,7 +20,7 @@ def main_list():
     notes = (
         note_service.search_by_title(query=search, page=page, favorites=favorites)
         if search
-        else note_service.get_paginated_notes(page=page)
+        else note_service.get_paginated_notes(page=page, favorites=favorites)
     )
     notes_list = (
         note_service.get_favorites() if favorites else note_service.get_recent_notes()

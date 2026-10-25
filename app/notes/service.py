@@ -10,8 +10,8 @@ class NoteService:
         self.db = db
         self.repo = NoteRepository()
 
-    def get_paginated_notes(self, page:int, per_page: int = 6) -> Pagination:
-        return self.repo.paginated_note_list(per_page=per_page, page=page)
+    def get_paginated_notes(self, page: int, favorites: bool = False, per_page: int = 6) -> Pagination:
+        return self.repo.paginated_note_list(per_page=per_page, page=page, favorites=favorites)
 
     def get_recent_notes(self) -> list[Note]:
         return self.repo.last_ten_notes()
