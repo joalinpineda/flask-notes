@@ -20,7 +20,7 @@
 
 <div class="flex items-center gap-2">
     <!-- Edit note -->
-    <a href="{{url_for('notes.edit_note', slug=note.slug)}}" class="px-3 py-2 text-sm text-neutral-500 hover:bg-amber-100 rounded-md">
+    <a href="{{url_for('notes.edit_note', slug=note.slug, favorites=request.args.get('favorites'))}}" class="px-3 py-2 text-sm text-neutral-500 hover:bg-amber-100 rounded-md">
         <span class="text-base leading-none">
             ✏️
         </span>
@@ -41,33 +41,33 @@
 
 <!-- CONTENT -->
 {% block Content %}
-<!-- VIEWER/EDITOR -->
-<section class="max-w-3xl mx-auto px-6 py-12" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">
+    <!-- VIEWER/EDITOR -->
+    <section class="max-w-3xl mx-auto px-6 py-12" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">
 
-    <!-- Metadata -->
-    <div class="flex items-center gap-3 mb-8">
+        <!-- Metadata -->
+        <div class="flex items-center gap-3 mb-8">
 
-        <span class="text-xs text-neutral-400">
-            Updated at {{note.updated_at}}
-        </span>
+            <span class="text-xs text-neutral-400">
+                Updated at {{note.updated_at}}
+            </span>
 
-        <span class="w-1 h-1 rounded-full bg-neutral-300"></span>
+            <span class="w-1 h-1 rounded-full bg-neutral-300"></span>
 
-        <span class="text-xs text-neutral-400">
-            {{note.content| length}} characters
-        </span>
+            <span class="text-xs text-neutral-400">
+                {{note.content| length}} characters
+            </span>
 
-    </div>
+        </div>
 
-   <!-- TITLE -->
-    <h1
-    class="w-full text-4xl font-bold tracking-tight bg-transparent border-none outline-none placeholder:text-neutral-300 mb-6"
-    >
-        {{note.title}}
-    </h1>
-    <p
-    class="w-full min-h-[500px] resize-none bg-transparent border-none outline-none text-lg leading-8 text-neutral-700 placeholder:text-neutral-300"
-    >{{note.content}}
-    </p>
-</section>
+    <!-- TITLE -->
+        <h1
+        class="w-full text-4xl font-bold tracking-tight bg-transparent border-none outline-none placeholder:text-neutral-300 mb-6"
+        >
+            {{note.title}}
+        </h1>
+        <p
+        class="w-full min-h-[500px] resize-none bg-transparent border-none outline-none text-lg leading-8 text-neutral-700 placeholder:text-neutral-300"
+        >{{note.content}}
+        </p>
+    </section>
 {% endblock Content %}
